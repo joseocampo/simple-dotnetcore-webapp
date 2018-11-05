@@ -1,0 +1,13 @@
+FROM microsoft/dotnet:2.2.100-preview3-sdk AS build
+WORKDIR /web
+
+COPY WebAppForDocker.csproj .
+RUN dotnet restore
+
+COPY . .
+RUN dotnet publish -c Release -o out
+
+FROM microsoft/dotnet:2.2.0-preview3-aspnetcore-runtime
+COPY --from=build /web/out .
+ENTRYPOINT ["dotnet", "WebAppForDocker.dll"]
+HEALTHCHECK CMD curl --fail http://localhost:80/healthz || exit 1 
