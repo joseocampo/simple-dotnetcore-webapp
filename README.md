@@ -41,7 +41,7 @@ Useful commands:
 `docker rm swa` 
 0. Delete image  
 `docker rmi [hash]`
-0. See files in container
+0. See files in container  
 `docker exec -it [container ID] bash`
 
 # Health Check
